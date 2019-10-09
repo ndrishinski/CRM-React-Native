@@ -98,7 +98,7 @@ class AddPerson extends Component {
                         onChangeText={value => this.props.formUpdate({prop: 'notes', value})}
                     />
                     <View style={styles.addButton}>
-                        <AddButton />
+                        <AddButton onPress={this.onAddPress.bind(this)} />
                     </View>
                 </View>
             </ScrollView>
@@ -111,4 +111,4 @@ const mapStateToProps = state => {
     return  { firstName, lastName, phone, email, company, project, notes} 
 }
 
-export default connect(null, actions)(AddPerson);
+export default connect(mapStateToProps, actions)(AddPerson);
