@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 detailView: true,
-                personSelected: action.payload
+                personSelected: action.selectId
             }
         case 'NONE_SELECTED':
             return {

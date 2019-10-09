@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native'
+import {View, Text, StyleSheet, Image, TouchableWithoutFeedback} from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 
 import * as actions from '../actions'
@@ -37,7 +37,8 @@ const styles =  StyleSheet.create({
 const PeopleItem = (props) => {
     console.log(props.people.firstName)
     return (
-        <View style={[theme.cardStyle, styles.card]}>
+        <TouchableWithoutFeedback onPress={() => props.selectPerson(props.people)}>
+            <View style={[theme.cardStyle, styles.card]}>
             <Image 
                 source={require('../images/background.jpg')}
                 style={[theme.cardImageStyle, styles.image]}
@@ -50,6 +51,7 @@ const PeopleItem = (props) => {
             <Text style={[theme.cardTitleStyle, styles.title]}>{props.people.firstName} {props.people.lastName}</Text>
             <Text style={[theme.cardActionStyle, styles.action]}>{props.people.company}</Text>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 export default connect(null, actions)(PeopleItem);

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/EvilIcons'
 
 import { connect } from 'react-redux';
 import PeopleItem from './PeopleItem';
+import PeopleDetail from './PeopleDetail';
 
 const styles =  StyleSheet.create({
     container: {
@@ -21,13 +22,27 @@ class PeopleList extends Component {
         )
     }
 
-    render() {
-        return (
-            <View style={styles.container}>
+    renderInitialView() {
+        console.log('even getting here', this.props.detailView)
+        if (this.props.detailView === true) {
+            return (
+                <PeopleDetail />
+            )
+        } else {
+            return (
                 <FlatList 
                     data={this.props.people}
                     renderItem={({item}) => <PeopleItem people={item} /> }
+                    keyExtractor={(item, index) => index.toString()}
                 />
+            )
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                {this.renderInitialView()}
             </View>
         )
     }
@@ -35,7 +50,8 @@ class PeopleList extends Component {
 
 const mapStateToProps = state => {
     return {
-        people: state.people
+        people: state.people,
+        detailView: state.detailView,
     }
 }
 
