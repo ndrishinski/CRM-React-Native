@@ -8,7 +8,7 @@ const TabNavigator = createBottomTabNavigator(
     {
         People: PeopleList,
         Add: AddPerson,
-        Company: CompanyList
+        Company: CompanyList,
     },
     {
         initialRouteName: 'People',

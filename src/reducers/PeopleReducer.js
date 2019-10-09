@@ -9,6 +9,8 @@ const initialState = {
     company: '',
     project: '',
     notes: '',
+    _id: '',
+    toUpdate: false,
 }
 
 export default (state = initialState, action) => {
@@ -51,6 +53,33 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 ...action.newPerson
+            }
+        case 'UPDATE_CONTACT': 
+            return {
+                ...state, 
+                toUpdate: true,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
+                phone: action.payload.phone,
+                email: action.payload.email,
+                company: action.payload.company,
+                project: action.payload.project,
+                notes: action.payload.notes,
+                _id: action.payload._id,
+            }
+            case 'SAVE_CONTACT':
+            return {
+                ...state, 
+                toUpdate: false,
+                detailView: false,
+                firstName: '',
+                lastName: '',
+                phone: '',
+                email: '',
+                company: '',
+                project: '',
+                notes: '',
+                _id: '',
             }
         case 'DELETE_CONTACT':
             return {
