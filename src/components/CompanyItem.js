@@ -1,0 +1,56 @@
+import React, {Component} from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { getTheme } from 'react-native-material-kit'
+
+const theme = getTheme();
+
+const styles =  StyleSheet.create({
+    card: {
+        marginTop: 20,
+    },
+    title: {
+        top: 20,
+        left: 80,
+        fontSize: 24
+    },
+    image: {
+        height: 100
+    }, 
+    action: {
+        backgroundColor: 'black',
+        color: 'white',
+        paddingBottom: 5,
+        paddingTop: 5
+    }, 
+    icon: {
+        position: 'absolute', 
+        left: 0,
+        top: 15,
+        color: 'white',
+        backgroundColor: 'rgba(255,255,255, 0)'
+    }
+})
+
+const CompanyItem = (props) => {
+    return (
+        <View style={[theme.cardStyle, styles.card]}>
+            <Image 
+                source={require('../images/background.jpg')}
+                style={[theme.cardImageStyle, styles.image]}
+            />
+            <Icon 
+                name={'business'}
+                size={100}
+                style={styles.icon}
+            />
+            <Text style={[theme.cardTitleStyle, styles.title]}>{props.companies.company}</Text>
+                {props.companies.names.map((name) => {
+                    return (
+                        <Text style={[theme.cardActionStyle, styles.action]}>{name.firstName} {name.lastName}</Text>
+                    )
+                })}
+        </View>
+    )
+}
+export default CompanyItem

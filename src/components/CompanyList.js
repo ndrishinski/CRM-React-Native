@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native'
+import {View, Text, StyleSheet, FlatList} from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import * as actions from '../actions';
+import _ from 'lodash';
+import CompanyItem from './CompanyItem';
+
+const styles =  StyleSheet.create({
+    container: {
+        flexWrap: 'wrap',
+        paddingTop: 20,
+        paddingLeft: 20,
+        backgroundColor: '#e5e5e5'
+    }
+})
 
 
 import { connect } from 'react-redux';
@@ -14,9 +25,32 @@ class CompanyList extends Component {
     }
     render() {
         return (
-            <Text>Company LIst screen</Text>
+            <View style={styles.container}>
+                <FlatList 
+                    data={this.props.companies}
+                    renderItem={({item}) => <CompanyItem companies={item} />}
+                    keyExtractor={(item, ind) => indexedDB.toString()}
+                />
+            </View>
         )
     }
 }
 
-export default connect(null, actions)(CompanyList);
+const mapStateToProps = state => {
+    const people = state.people;
+    const companies = _.chain(people)
+        .groupBy('company')
+        .map((item, key) => {
+            return {
+                company: key,
+                names: item
+            }
+        })
+        .value();
+    
+    return {
+        companies, 
+    }
+}
+
+export default connect(mapStateToProps, actions)(CompanyList);
